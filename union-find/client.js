@@ -10,8 +10,8 @@ UF.prototype.find = function(a, b) {
 
 UF.prototype.union = function(a, b) {
   // value of b
-  var vB = this.sites[b];
   var vA = this.sites[a];
+  var vB = this.sites[b];
   for (var i = 0; i < this.sites.length; i++) {
     if (this.sites[i] == vA) {
       this.sites[i] = vB;
