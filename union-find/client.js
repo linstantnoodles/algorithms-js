@@ -20,7 +20,17 @@ UF.prototype.union = function(a, b) {
 }
 
 UF.prototype.numComponents = function() {
-  return 5;
+  var connectors = [];
+  var count = 0;
+
+  for (var i = 0; i < this.sites.length; i++) {
+    if (!connectors[this.sites[i]]) {
+      connectors[this.sites[i]] = true;
+      count++;
+    }
+  }
+
+  return count;
 }
 
 UF.prototype.createSites = function(n) {
@@ -31,6 +41,7 @@ UF.prototype.createSites = function(n) {
 
 UF.prototype.init = function() {
   var _this = this;
+
   process.stdin.resume();
   process.stdin.setEncoding('utf8');
   process.stdin.on('data', function(chunk) {
@@ -50,8 +61,11 @@ UF.prototype.init = function() {
       }
     }
 
+    console.log("Num components: " + _this.numComponents());
+
   });
 }
 
 var uf = new UF();
 uf.init();
+
