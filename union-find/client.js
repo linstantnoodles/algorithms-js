@@ -1,14 +1,14 @@
 
-function UF() {
+function QuickfindUF() {
   this.sites = [];
 }
 
-UF.prototype.find = function(a, b) {
+QuickfindUF.prototype.find = function(a, b) {
   // TODO: Add checks
   return this.sites[a] == this.sites[b];
 }
 
-UF.prototype.union = function(a, b) {
+QuickfindUF.prototype.union = function(a, b) {
   // value of b
   var vA = this.sites[a];
   var vB = this.sites[b];
@@ -19,7 +19,7 @@ UF.prototype.union = function(a, b) {
   }
 }
 
-UF.prototype.numComponents = function() {
+QuickfindUF.prototype.numComponents = function() {
   var connectors = [];
   var count = 0;
 
@@ -33,13 +33,13 @@ UF.prototype.numComponents = function() {
   return count;
 }
 
-UF.prototype.createSites = function(n) {
+QuickfindUF.prototype.createSites = function(n) {
   for (var i = 0; i < n; i++) {
     this.sites[i] = i;
   }
 }
 
-UF.prototype.init = function() {
+QuickfindUF.prototype.init = function() {
   var _this = this;
 
   process.stdin.resume();
@@ -66,6 +66,6 @@ UF.prototype.init = function() {
   });
 }
 
-var uf = new UF();
-uf.init();
+var quickfind = new QuickfindUF();
+quickfind.init();
 
