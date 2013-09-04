@@ -18,7 +18,6 @@ QuickfindUF.prototype.union = function(a, b) {
     }
   }
 }
-
 QuickfindUF.prototype.numComponents = function() {
   var connectors = [];
   var count = 0;
@@ -66,6 +65,55 @@ QuickfindUF.prototype.init = function() {
   });
 }
 
-var quickfind = new QuickfindUF();
-quickfind.init();
+// Create a prototype for the subclass that inherist from the prototype
+// of the superclass. We do this with the heir() function
+function inheritFrom(p) {
+  var fn = function() {}
+  fn.prototype = p;
+  return new fn;
+}
+
+// Our new constructor function
+function QuickunionUF() {
+  // Invokes constructor of QF as if it were method of object(this)
+  QuickfindUF.call(this);
+}
+
+QuickunionUF.prototype = inheritFrom(QuickfindUF.prototype);
+
+QuickunionUF.prototype.root = function(a) {
+  while (this.sites[a] != a) {
+    a = this.sites[a];
+  }
+
+  return a;
+}
+
+QuickunionUF.prototype.find = function(a, b) {
+  return this.root(a) == this.root(b);
+}
+
+QuickunionUF.prototype.union = function(a, b) {
+  this.sites[this.root(a)] = this.root(b);
+}
+
+QuickunionUF.prototype.numComponents = function() {
+  var count = 0;
+  for (var i = 0; i < this.sites.length; i++) {
+    if (this.sites[i] == i) {
+      count++;
+    }
+  }
+
+  return count;
+}
+
+// Quickfind
+// var quickfind = new QuickfindUF();
+// quickfind.init();
+
+// Quickunion
+ var quickunion = new QuickunionUF();
+ quickunion.init();
+
 
