@@ -1,4 +1,3 @@
-
 function QuickfindUF() {
   this.sites = [];
 }
@@ -108,12 +107,51 @@ QuickunionUF.prototype.numComponents = function() {
   return count;
 }
 
+// Weighted quickunion
+function WeightedQuickunionUF() {
+  this.siteSize = [];
+  QuickunionUF.call(this);
+}
+
+// Inherit from quickunion
+WeightedQuickunionUF.prototype = inheritFrom(QuickunionUF.prototype);
+
+WeightedQuickunionUF.prototype.union = function(a, b) {
+  var rootA = this.root(a);
+  var rootB = this.root(b);
+  var sizeOfA = (this.siteSize[rootA]) ? this.siteSize[rootA] : 1;
+  var sizeOfB = (this.siteSize[rootB]) ? this.siteSize[rootB] : 1;
+
+  if (this.siteSize[rootA] < this.siteSize[rootB]) {
+    this.sites[rootA] = rootB;
+    this.siteSize[rootB] += this.siteSize[rootA];
+  } else {
+    this.sites[rootB] = rootA;
+    this.siteSize[rootA] += this.siteSize[rootB];
+  }
+};
+
+WeightedQuickunionUF.prototype.root = function(a) {
+  // set nodes along path to the root (path compression)
+  // set all node from a (including a) to root of a to be the root
+  while (this.sites[a] != a) {
+    this.sites[a] = this.sites[this.sites[a]];
+    a = this.sites[a];
+  }
+
+  return a;
+}
+
+
 // Quickfind
 // var quickfind = new QuickfindUF();
 // quickfind.init();
 
 // Quickunion
- var quickunion = new QuickunionUF();
- quickunion.init();
+// var quickunion = new QuickunionUF();
+// quickunion.init();
 
+// Weighted quickunion
+ var weightedquickunion = new WeightedQuickunionUF();
+ weightedquickunion.init();
 
