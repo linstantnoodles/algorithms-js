@@ -1,3 +1,11 @@
+// Create a prototype for the subclass that inherist from the prototype
+// of the superclass. We do this with the heir() function
+function inheritFrom(p) {
+  var fn = function() {}
+  fn.prototype = p;
+  return new fn;
+}
+
 function QuickfindUF() {
   this.sites = [];
 }
@@ -17,6 +25,7 @@ QuickfindUF.prototype.union = function(a, b) {
     }
   }
 }
+
 QuickfindUF.prototype.numComponents = function() {
   var connectors = [];
   var count = 0;
@@ -58,18 +67,10 @@ QuickfindUF.prototype.init = function() {
         }
       }
     }
-
+    console.log(_this.sites);
     console.log("Num components: " + _this.numComponents());
 
   });
-}
-
-// Create a prototype for the subclass that inherist from the prototype
-// of the superclass. We do this with the heir() function
-function inheritFrom(p) {
-  var fn = function() {}
-  fn.prototype = p;
-  return new fn;
 }
 
 // Our new constructor function
@@ -142,16 +143,7 @@ WeightedQuickunionUF.prototype.root = function(a) {
   return a;
 }
 
-
-// Quickfind
-// var quickfind = new QuickfindUF();
-// quickfind.init();
-
-// Quickunion
-// var quickunion = new QuickunionUF();
-// quickunion.init();
-
-// Weighted quickunion
- var weightedquickunion = new WeightedQuickunionUF();
- weightedquickunion.init();
+exports.quickfind = QuickfindUF;
+exports.quickunion = QuickunionUF;
+exports.weightedquickunion = WeightedQuickunionUF;
 
