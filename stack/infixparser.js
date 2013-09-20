@@ -27,37 +27,35 @@ function performOp(a,b,op) {
 
 function parse(stack) {
   var temp = [];
-  while(stack.length > 0) {
+  while (stack.length > 0) {
     var val = stack.pop();
     if (isOperator(val)) {
-      console.log("Found op: " + val);
-      // Perform look ahead
+      // Lookahead
       var valB = stack.pop();
       var opB = stack.pop();
-      if (opB && isOperator(opB)) {
-        if (precedence(opB) > precedence(val)) {
-          // Next op has greater precedence
-          temp.push(val); // Push op on temp
-          // Putback
+      if (!(opB || isOperator(opB))) {
+        temp.push(performOp(temp.pop(), valB, val));
+      } else {
+        if (precedence(opB) <= precedence(val)) {
+          stack.push(opB);
+          temp.push(performOp(temp.pop(), valB, val));
+        } else {
+          // Pushback
+          temp.push(val);
           stack.push(opB);
           stack.push(valB);
-          continue; // Jump to next iteration
-        } else {
-          temp.push(performOp(temp.pop(), valB, val));
         }
-        stack.push(opB);
-      } else {
-        // Calculate and push back on stack
-        temp.push(performOp(temp.pop(), valB, val));
       }
-      // return the extra operator we popped
     } else {
-      console.log("Found num: " + val);
       temp.push(val);
     }
   }
-  console.log(temp);
-  if (temp.length > 1) parse(temp);
+  // Recurse on remaining numbers
+  if (temp.length > 1) {
+    parse(temp);
+  } else {
+    console.log(temp);
+  }
 }
 
 parse(stack);
