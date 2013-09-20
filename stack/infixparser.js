@@ -1,21 +1,23 @@
-var stack = [2, '+' ,3, '*', 4, '*', 5,'+',6];
+// Test
+var stack = [2,'+',3,'*',4,'*',5,'+',6];
 
 function isOperator(op) {
-  return ((op == '*') || (op == '/') || (op == '+') || (op == '-'));
+  return (op == '*' || op == '/' || op == '+' || op == '-');
 }
 
 function precedence(op) {
-  switch (op) {
-    case '*': return 2; break;
-    case '/': return 2; break;
-    case '+': return 1; break;
-    case '-': return 1; break;
-  }
+  if (op == '*' || op == '/') return 2;
+  if (op == '+' || op == '-') return 1;
   return 0;
 }
 
+// If a has higher precedence
+function hasHigherPrecedence(a, b) {
+  return precedence(a) > precedence(b);
+}
+
 function performOp(a,b,op) {
-  console.log("Perform op: " + a + "," + b + " using " + op);
+  console.log("Operation: " + a + op + b);
   switch (op) {
     case '*': return a * b; break;
     case '/': return a / b; break;
@@ -31,19 +33,19 @@ function parse(stack) {
     var val = stack.pop();
     if (isOperator(val)) {
       // Lookahead
-      var valB = stack.pop();
-      var opB = stack.pop();
-      if (!(opB || isOperator(opB))) {
-        temp.push(performOp(temp.pop(), valB, val));
+      var num = stack.pop();
+      var op = stack.pop();
+      if (!(op || isOperator(op))) {
+        temp.push(performOp(temp.pop(), num, val));
       } else {
-        if (precedence(opB) <= precedence(val)) {
-          stack.push(opB);
-          temp.push(performOp(temp.pop(), valB, val));
+        if (!hasHigherPrecedence(op, val)) {
+          stack.push(op);
+          temp.push(performOp(temp.pop(), num, val));
         } else {
           // Pushback
           temp.push(val);
-          stack.push(opB);
-          stack.push(valB);
+          stack.push(op);
+          stack.push(num);
         }
       }
     } else {
