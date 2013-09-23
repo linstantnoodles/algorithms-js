@@ -1,5 +1,6 @@
 // Test
-var stack = [2,'+',3,'*',4,'*',5,'+',6];
+// (5+2) * (4*2) + 6 * 5
+var stack = [5,'*',6,'+',')',2,'*',4,'(','*',')',2, '+', 5, '('];
 
 function isOperator(op) {
   return (op == '*' || op == '/' || op == '+' || op == '-');
@@ -27,6 +28,20 @@ function performOp(a,b,op) {
   return 0;
 }
 
+// right lookahead
+// left lookahead
+// if both operators
+  // if right larger
+    // perform right
+  // else if left larger
+    // perform left
+// if left operator greater
+    // perform left
+// if right operator greater
+    // perform right
+// else
+  // perform normal
+
 function parse(stack) {
   var temp = [];
   while (stack.length > 0) {
@@ -35,7 +50,12 @@ function parse(stack) {
       // Lookahead
       var num = stack.pop();
       var op = stack.pop();
-      if (!(op || isOperator(op))) {
+      if (num == '(') {
+        temp.push(val);
+        stack.push(op);
+      } else if (op == ')') {
+        temp.push(performOp(temp.pop(), num, val));
+      } else if (!(op || isOperator(op))) {
         temp.push(performOp(temp.pop(), num, val));
       } else {
         if (!hasHigherPrecedence(op, val)) {
@@ -48,7 +68,7 @@ function parse(stack) {
           stack.push(num);
         }
       }
-    } else {
+    } else if (typeof val == 'number') {
       temp.push(val);
     }
   }
