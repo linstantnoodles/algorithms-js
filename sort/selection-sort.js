@@ -1,7 +1,6 @@
-var numbers = [5,4,2,5,1,8];
+var list = [5,4,2,5,1,8];
 
 function selectionSort(list) {
-  console.log(list);
   var minIndex;
   var listLen = list.length;
   for (var i = 0; i < listLen; i++) {
@@ -15,7 +14,8 @@ function selectionSort(list) {
     list[i] = list[minIndex];
     list[minIndex] = temp;
   }
-  console.log(list);
 }
 
-selectionSort(numbers);
+console.log(list);
+selectionSort(list);
+console.log(list);
