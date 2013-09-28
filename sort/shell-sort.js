@@ -6,6 +6,7 @@ function getPrevSeq(val) {
 
 function shellSort(list) {
   var listLen = list.length;
+  // Knuths 3n + 1 sequence
   var seq = 3 * getPrevSeq(listLen - 1) + 1;
   while (seq > 0) {
     console.log("Seq: " + seq);
