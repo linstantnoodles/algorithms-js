@@ -62,19 +62,14 @@ function parse(stack) {
           if (!hasHigherPrecedence(opA, val)) {
             stack.push(op);
             stack.push(num);
-
             temp.push(opA);
             temp.push(performOp(numA, stack.pop(), val));
           } else {
-
-            console.log("holla: " + val);
-            console.log(stack);
             if (op) stack.push(op);
             if (num) stack.push(num);
             stack.push(val);
             stack.push(numA);
             stack.push(opA);
-
           }
         }
       } else if (opA && isOperator(opA)) {
@@ -90,8 +85,6 @@ function parse(stack) {
             stack.push(val);
             stack.push(numA);
             stack.push(opA);
-            console.log(temp);
-            console.log(stack);
           }
       } else if (op == ')') {
         if (opA) temp.push(opA);
@@ -100,7 +93,6 @@ function parse(stack) {
       } else if (!(op || isOperator(op))) {
         if (opA) temp.push(opA);
         if (numA) temp.push(numA);
-
         temp.push(performOp(temp.pop(), num, val));
       } else {
         if (opA) temp.push(opA);
