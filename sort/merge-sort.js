@@ -25,8 +25,18 @@ function merge(list, leftLo, leftHi, rightLo, rightHi) {
   }
 }
 
-var len = list.length;
-var mid = Math.floor(list.length / 2);
-console.log(mid);
-merge(list, 0, mid, mid + 1, len - 1);
+function mergeSort(list, lo, hi) {
+  if (lo >= hi) {
+    return;
+  }
+
+  var mid = Math.floor((lo + hi) / 2);
+  mergeSort(list, lo, mid);
+  mergeSort(list, mid + 1, hi);
+  merge(list, lo, mid, mid + 1, hi);
+  return;
+}
+
+console.log(list);
+mergeSort(list, 0, list.length - 1);
 console.log(list);
