@@ -10,11 +10,18 @@ function QuickfindUF() {
   this.sites = [];
 }
 
+/**
+ * O(1)
+ * @return {boolean}
+ */
 QuickfindUF.prototype.find = function(a, b) {
   // TODO: Add checks
   return this.sites[a] == this.sites[b];
 }
 
+/**
+ * O(N)
+ */
 QuickfindUF.prototype.union = function(a, b) {
   // value of b
   var vA = this.sites[a];
@@ -132,11 +139,18 @@ WeightedQuickunionUF.prototype.union = function(a, b) {
   }
 };
 
+/**
+ * Set nodes along path to the root (path compression) which keeps the tree flat
+ * This one is a simple one pass variant (Compress by grandparent)
+ * A more complete path compression requires another call to root()
+ * But in practice, the one pass variant works just as well
+ */
 WeightedQuickunionUF.prototype.root = function(a) {
-  // set nodes along path to the root (path compression)
-  // set all node from a (including a) to root of a to be the root
+  // while not at root
   while (this.sites[a] != a) {
+    // set current connection to two levels above
     this.sites[a] = this.sites[this.sites[a]];
+    // update current site
     a = this.sites[a];
   }
 
