@@ -5,6 +5,7 @@ function merge(list, leftLo, leftHi, rightLo, rightHi) {
   var left = leftLo;
 
   while (leftLo <= leftHi && rightLo <= rightHi) {
+    // Maintains stability by moving from left subarray for equal keys
     if (list[leftLo] <= list[rightLo]) {
       sortedList.push(list[leftLo++]);
     } else {
