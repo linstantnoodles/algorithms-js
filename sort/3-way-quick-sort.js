@@ -6,7 +6,8 @@ function quickSort(list, lo, hi) {
     return;
   }
 
-  var lt = i = lo;
+  var lt = lo;
+  var i = lt;
   var gt = hi;
 
   while (i <= gt) {
