@@ -1,6 +1,20 @@
+var list = [5,3,2,1,5,12,8];
+
 function Heap() {
   this.contents = [];
   this.curr = 1; // Position to insert
+}
+
+Heap.prototype.sort = function(list) {
+  // Copy the list
+  for (var i = 0 ; i < list.length; i++) {
+    this.insert(list[i]);
+  }
+
+  while (this.curr > 1) {
+    this.remove();
+  }
+  console.log(this.contents);
 }
 
 Heap.prototype.insert = function(n) {
@@ -30,6 +44,7 @@ Heap.prototype.remove = function() {
   console.log(this.contents);
   var max = this.contents[1];
   this.contents[1] = this.contents[this.curr - 1];
+  this.contents[this.curr - 1] = max;
   this.curr--;
   this.sink(1);
   console.log(this.contents);
@@ -46,7 +61,7 @@ Heap.prototype.greater = function(left, right) {
 Heap.prototype.sink = function(k) {
   console.log("Sinking");
   var target = this.greater(k*2, k*2+1);
-  while (this.contents[k] < this.contents[target]) {
+  while (target < this.curr && this.contents[k] < this.contents[target]) {
     console.log(this.contents[k] + " is smaller than one of its subordinates : " + this.contents[target]);
     var temp = this.contents[target];
     this.contents[target] = this.contents[k];
@@ -64,3 +79,8 @@ hp.insert(9);
 hp.insert(20);
 hp.insert(1);
 hp.remove();
+
+var hpSort = new Heap();
+console.log("List to sort");
+console.log(list);
+hpSort.sort(list);
