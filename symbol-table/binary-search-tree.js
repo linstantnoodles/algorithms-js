@@ -4,6 +4,7 @@ function Node(key, value) {
   this.right = null;
   this.key = key;
   this.value = value;
+  this.count = null;
 }
 
 // Assume keys are integers
@@ -27,6 +28,8 @@ BST.prototype.put = function(curr, key, value) {
   } else {
     curr.value = value;
   }
+  // Update count on the way back
+  curr.count = 1 + this.size(curr.left) + this.size(curr.right);
 
   return curr;
 }
@@ -46,19 +49,31 @@ BST.prototype.get = function(key) {
   return null;
 }
 
-// In-order print
-BST.prototype.print = function() {
-  this.walk(this.root);
+BST.prototype.size = function(node) {
+  if (!node ) {
+    return 0;
+  }
+  return (node.count == null) ? 1 : node.count;
 }
 
-BST.prototype.walk = function(node) {
+// In-order print
+BST.prototype.print = function() {
+  var queue = [];
+  this.inorder(this.root, queue);
+  while (queue.length > 0) {
+    var node = queue.shift();
+    console.log("(K,V) = (" + node.key + "," + node.value + ")");
+  }
+}
+
+BST.prototype.inorder = function(node, queue) {
   if (node == null) {
     return;
   }
 
-  this.walk(node.left);
-  console.log("(K,V) = (" + node.key + "," + node.value + ")");
-  this.walk(node.right);
+  this.inorder(node.left, queue);
+  queue.push(node);
+  this.inorder(node.right, queue);
 
   return;
 }
@@ -68,5 +83,8 @@ bst.insert(5, "Alan");
 bst.insert(3, "Jane");
 bst.insert(1, "Bob");
 bst.insert(11, "Dave");
+console.log("Printing tree");
 bst.print();
 console.log(bst.get(3));
+console.log(bst.get(1));
+console.log(bst.root.count);
