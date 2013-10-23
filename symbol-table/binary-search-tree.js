@@ -56,6 +56,21 @@ BST.prototype.size = function(node) {
   return (node.count == null) ? 1 : node.count;
 }
 
+BST.prototype.rank = function(curr, key) {
+  if (!curr) {
+    return 0;
+  }
+
+  if (key < curr.key) {
+    return this.rank(curr.left, key);
+  } else if (key > curr.key) {
+    return 1 + this.size(curr.left) + this.rank(curr.right, key);
+  } else {
+    return this.size(curr.left);
+  }
+
+}
+
 // In-order print
 BST.prototype.print = function() {
   var queue = [];
@@ -87,4 +102,5 @@ console.log("Printing tree");
 bst.print();
 console.log(bst.get(3));
 console.log(bst.get(1));
-console.log(bst.root.count);
+console.log("Total at root: " + bst.root.count);
+console.log(bst.rank(bst.root, 11));
