@@ -50,7 +50,7 @@ BST.prototype.get = function(key) {
 }
 
 BST.prototype.size = function(node) {
-  if (!node ) {
+  if (!node) {
     return 0;
   }
   return (node.count == null) ? 1 : node.count;
