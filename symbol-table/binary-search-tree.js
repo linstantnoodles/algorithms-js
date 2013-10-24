@@ -16,6 +16,19 @@ BST.prototype.insert = function(key, value) {
   this.root = this.put(this.root, key, value);
 }
 
+// Return the min node
+BST.prototype.min = function(node) {
+  if (!node) {
+    return null;
+  }
+
+  while (node.left != null) {
+    node = node.left;
+  }
+
+  return node;
+}
+
 BST.prototype.put = function(curr, key, value) {
   if (!curr) {
     return new Node(key, value);
@@ -71,6 +84,38 @@ BST.prototype.rank = function(curr, key) {
 
 }
 
+BST.prototype.delete = function(key) {
+  this.root = this.remove(this.root, key);
+}
+
+BST.prototype.remove = function(node, key) {
+  if (!node) {
+    return null;
+  }
+
+  if (node.key < key) {
+    node.right = this.remove(node.right, key);
+  } else if (node.key > key) {
+    node.left = this.remove(node.left, key);
+  } else {
+    if (node.left && node.right) {
+      var newNode = this.min(node.right);
+      newNode.left = node.left;
+      newNode.right = node.right;
+      node = newNode;
+    } else if (node.left) {
+      node = node.left;
+    } else if (node.right) {
+      node = node.right;
+    } else {
+      return null;
+    }
+  }
+
+  node.count = 1 + this.size(node.left) + this.size(node.right);
+  return node;
+}
+
 // In-order print
 BST.prototype.print = function() {
   var queue = [];
@@ -95,8 +140,14 @@ BST.prototype.inorder = function(node, queue) {
 
 var bst = new BST();
 bst.insert(5, "Alan");
+bst.insert(6, "Sto");
+bst.insert(7, "Jack");
+bst.insert(8, "Henry");
+bst.insert(9, "Mark");
+bst.insert(10, "Alan");
 bst.insert(3, "Jane");
-bst.insert(1, "Bob");
+bst.insert(2, "Bob");
+bst.insert(1, "Steve");
 bst.insert(11, "Dave");
 console.log("Printing tree");
 bst.print();
@@ -104,3 +155,9 @@ console.log(bst.get(3));
 console.log(bst.get(1));
 console.log("Total at root: " + bst.root.count);
 console.log(bst.rank(bst.root, 11));
+console.log("Min : " + bst.min(bst.root.right).key);
+console.log("Deleting");
+bst.delete(4);
+bst.delete(1);
+bst.delete(8);
+bst.print();
