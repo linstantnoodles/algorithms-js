@@ -16,7 +16,8 @@ function primeFactors(n) {
   return primeFactors;
 }
 
-for(var i = 1; i < 20; i++) {
+// Test
+for (var i = 1; i < 20; i++) {
   console.log(i + " : ");
   console.log(primeFactors(i));
 }
