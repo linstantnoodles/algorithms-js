@@ -6,15 +6,15 @@ var GraphProcessing = function() {
   this.marked = [];
 }
 
-GraphProcessing.prototype.init = function(graph) {
+GraphProcessing.prototype.init = function(graph, v) {
   var numVertices = graph.numVertices();
 
   for (var i = 0; i < numVertices; i++) {
     this.marked[i] = false;
   }
 
-  this.from[0] = 0;
-  this.dfs(graph, 0);
+  this.from[v] = v;
+  this.dfs(graph, v);
 }
 
 // Recursive DFS
@@ -45,7 +45,7 @@ GraphProcessing.prototype.pathTo = function(v) {
   return path.reverse();
 }
 
-console.log(Graph);
+/*console.log(Graph);
 
 // Nodes [0 ... 4]
 var graph = new Graph(5);
@@ -55,7 +55,9 @@ graph.addEdge(0,2);
 graph.addEdge(2,4);
 
 var gp = new GraphProcessing();
-gp.init(graph);
+gp.init(graph, 0);
 console.log(gp.marked);
 console.log(gp.from);
-console.log(gp.pathTo(4));
+console.log(gp.pathTo(4));*/
+
+module.exports = GraphProcessing;
