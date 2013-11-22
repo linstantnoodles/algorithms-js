@@ -73,10 +73,10 @@ ALGraph.prototype.numEdges = function() {
 }
 
 // Tests
-var graph = new ALGraph(5);
-graph.addEdge(1,3);
-graph.addEdge(2,4);
-console.log(graph.list);
-console.log(graph.toString());
+//var graph = new ALGraph(5);
+//graph.addEdge(1,3);
+//graph.addEdge(2,4);
+//console.log(graph.list);
+//console.log(graph.toString());
 
 module.exports.Graph = ALGraph;
