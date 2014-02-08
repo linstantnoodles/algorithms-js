@@ -1,7 +1,11 @@
-/*
+/**
  * Selection sort
+ *
  * O(n^2)
+ * @param {Array} list
+ * @return {Array}
  */
+
 function selectionSort(list) {
   var minIndex;
   var listLen = list.length;
@@ -20,6 +24,8 @@ function selectionSort(list) {
       list[minIndex] = temp;
     }
   }
+
+  return list;
 }
 
 module.exports = selectionSort;

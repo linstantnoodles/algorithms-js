@@ -1,7 +1,11 @@
-/*
+/**
  * Insertion sort
+ *
  * O(n^2)
+ * @param {Array} list
+ * @return {Array}
  */
+
 function insertionSort(list) {
   var listLen = list.length;
   for (var i = 1; i < listLen; i++) {
@@ -13,6 +17,8 @@ function insertionSort(list) {
       j--;
     }
   }
+
+  return list;
 }
 
 module.exports = insertionSort;

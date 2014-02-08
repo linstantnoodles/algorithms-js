@@ -1,7 +1,11 @@
-/*
+/**
  * Bubble sort
+ *
  * O(n^2)
+ * @param {Array} list
+ * @return {Array}
  */
+
 function bubbleSort(list) {
   var listLen = list.length;
   var swapped;
@@ -20,6 +24,8 @@ function bubbleSort(list) {
       break;
     }
   }
+
+  return list;
 }
 
 module.exports = bubbleSort;
