@@ -8,26 +8,23 @@ describe("Sort", function() {
   // To be used by native js array sort
   var comparator = function(a, b) { return a - b; };
   describe("Bubble", function() {
-    it("should sort a non-empty list of integers", function(){
+    it("should sort a non-empty list of integers", function() {
       var unsortedList = arrayUtil.randomNumbers(100);
-      bubbleSort(unsortedList);
-      assert.equal(unsortedList.sort(comparator), unsortedList);
+      assert.equal(arrayUtil.copy(unsortedList).sort(comparator).toString(), bubbleSort(unsortedList).toString());
     });
   });
 
   describe("Insertion", function() {
-    it("should sort a non-empty list of integers", function(){
+    it("should sort a non-empty list of integers", function() {
       var unsortedList = arrayUtil.randomNumbers(100);
-      insertionSort(unsortedList);
-      assert.equal(unsortedList.sort(comparator), unsortedList);
+      assert.equal(arrayUtil.copy(unsortedList).sort(comparator).toString(), insertionSort(unsortedList).toString());
     });
   });
 
   describe("Selection", function() {
-    it("should sort a non-empty list of integers", function(){
-      var unsortedList = arrayUtil.randomNumbers(100);
-      selectionSort(unsortedList);
-      assert.equal(unsortedList.sort(comparator), unsortedList);
+    it("should sort a non-empty list of integers", function() {
+      var unsortedList = arrayUtil.randomNumbers(10);
+      assert.equal(arrayUtil.copy(unsortedList).sort(comparator).toString(), selectionSort(unsortedList).toString());
     });
   });
 });

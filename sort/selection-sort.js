@@ -13,7 +13,7 @@ function selectionSort(list) {
   for (var i = 0; i < listLen - 1; i++) {
     minIndex = i;
     for (var j = i + 1; j < listLen; j++) {
-      if (list[j] < list[i]) {
+      if (list[j] < list[minIndex]) {
         minIndex = j;
       }
     }

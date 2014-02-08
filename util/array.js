@@ -29,5 +29,16 @@ Utility.randomNumbers = function(size, range, sort) {
   return (sort) ? list.sort(comparator) : list;
 }
 
+/**
+ * Copy a list
+ *
+ * @param {Array} list
+ * @return {Array}
+ */
+
+Utility.copy = function(list) {
+  return [].concat(list);
+}
+
 module.exports = Utility;
 
