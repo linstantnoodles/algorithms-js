@@ -1,5 +1,7 @@
-var list = [12,3,5,4,2,1];
-
+/*
+ * Bubble sort
+ * O(n^2)
+ */
 function bubbleSort(list) {
   var listLen = list.length;
   var swapped;
@@ -13,12 +15,12 @@ function bubbleSort(list) {
         swapped = true;
       }
     }
+    // list already sorted
     if (!swapped) {
       break;
     }
   }
 }
 
-console.log(list);
-bubbleSort(list);
-console.log(list);
+module.exports = bubbleSort;
+

@@ -1,5 +1,7 @@
-var list = [12,2,5,2,1,5,6];
-
+/*
+ * Insertion sort
+ * O(n^2)
+ */
 function insertionSort(list) {
   var listLen = list.length;
   for (var i = 1; i < listLen; i++) {
@@ -13,8 +15,5 @@ function insertionSort(list) {
   }
 }
 
-console.log(list);
-insertionSort(list);
-console.log(list);
-
+module.exports = insertionSort;
 

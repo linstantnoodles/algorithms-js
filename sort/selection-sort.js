@@ -1,5 +1,7 @@
-var list = [5,4,2,5,1,8,8,8,5];
-
+/*
+ * Selection sort
+ * O(n^2)
+ */
 function selectionSort(list) {
   var minIndex;
   var listLen = list.length;
@@ -11,7 +13,8 @@ function selectionSort(list) {
         minIndex = j;
       }
     }
-    if (minIndex != i) {
+
+    if (minIndex !== i) {
       var temp = list[i];
       list[i] = list[minIndex];
       list[minIndex] = temp;
@@ -19,6 +22,5 @@ function selectionSort(list) {
   }
 }
 
-console.log(list);
-selectionSort(list);
-console.log(list);
+module.exports = selectionSort;
+
