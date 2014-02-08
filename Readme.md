@@ -1,4 +1,3 @@
-algorithms-js
-=============
+# algorithms-js
 
-JavaScript implementations of algorithms 
+This is a collection of common algorithms and data structures written in JavaScript. Tests included.
