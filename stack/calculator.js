@@ -82,9 +82,7 @@ var toPostFix = function(tokens) {
     } else if (tok.isLeftParen()) {
       operators.push(tok);
     } else if (tok.isRightParen()) {
-      while (operators.length > 0
-        && !operators[operators.length - 1].isLeftParen()
-      ) {
+      while (operators.length > 0 && !operators.slice(-1)[0].isLeftParen()) {
         values.push(operators.pop());
       }
       // Pop left paren
