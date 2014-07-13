@@ -55,7 +55,7 @@ var tokenize = function(str) {
 };
 
 /**
- * Dijkstra yard-shunting algorithm
+ * Dijkstra shunting-yard algorithm
  * Converts an infix, arithmetic expression into postfix
  *
  * @param {Object} tokens a list of token objects
