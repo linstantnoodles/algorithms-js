@@ -64,6 +64,11 @@ var tokenize = function(str) {
 var toPostFix = function(tokens) {
   var values = [],
     operators = [];
+
+  if (tokens == null) {
+    return tokens;
+  }
+
   while (tokens.length > 0) {
     var tok = tokens.shift();
     if (tok.isNumber()) {
@@ -84,6 +89,9 @@ var toPostFix = function(tokens) {
     } else if (tok.isRightParen()) {
       while (operators.length > 0 && !operators.slice(-1)[0].isLeftParen()) {
         values.push(operators.pop());
+      }
+      if (!operators.length || !operators.slice(-1)[0].isLeftParen()) {
+        return;
       }
       // Pop left paren
       operators.pop();
@@ -106,6 +114,11 @@ var toPostFix = function(tokens) {
 
 var calculate = function(tokens) {
   var values = [];
+
+  if (tokens == null) {
+    return tokens;
+  }
+
   while (tokens.length > 0) {
     var token = tokens.shift();
     if (token.isNumber()) {
