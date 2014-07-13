@@ -35,7 +35,7 @@ Token.prototype = {
     return (this.value == "^") ? false : true;
   },
 
-  precedence: function() {
+  pre: function() {
     switch (this.value) {
       case "+": return 2;
       case "-": return 2;
@@ -69,15 +69,11 @@ var toPostFix = function(tokens) {
     if (tok.isNumber()) {
       values.push(tok);
     } else if (tok.isOperator()) {
-      while (
-        operators.length > 0
-        && operators[operators.length - 1].isOperator()
+      while (operators.length > 0
+        && operators.slice(-1)[0].isOperator()
         && (
-          (
-            tok.isLeftAssoc()
-            && tok.precedence() <= operators[operators.length - 1].precedence()
-          )
-          || (tok.precedence() < operators[operators.length - 1].precedence())
+          (tok.isLeftAssoc() && tok.pre() <= operators.slice(-1)[0].pre())
+          || (tok.pre() < operators.slice(-1)[0].pre())
           )
       ) {
         values.push(operators.pop());
@@ -86,8 +82,7 @@ var toPostFix = function(tokens) {
     } else if (tok.isLeftParen()) {
       operators.push(tok);
     } else if (tok.isRightParen()) {
-      while (
-        operators.length > 0
+      while (operators.length > 0
         && !operators[operators.length - 1].isLeftParen()
       ) {
         values.push(operators.pop());
@@ -118,8 +113,8 @@ var calculate = function(tokens) {
     if (token.isNumber()) {
       values.push(token);
     } else if (token.isOperator()) {
-      var op1 = parseInt(values.shift().value, 10),
-        op2 = parseInt(values.shift().value, 10),
+      var op1 = parseInt(values.pop().value, 10),
+        op2 = parseInt(values.pop().value, 10),
         result;
       switch (token.value) {
         case "+":
@@ -141,7 +136,7 @@ var calculate = function(tokens) {
       values.push(new Token(result));
     }
   }
-  return values.pop();
+  return parseInt(values.pop().value, 10);
 };
 
-console.log(calculate(toPostFix(tokenize("2+2*3"))));
+console.log(calculate(toPostFix(tokenize("(2+2)*3*(2+9)"))));
